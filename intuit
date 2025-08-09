@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francis Chan | Craft Demo: Compliance as a Product</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony Neutrals -->
+    <!-- Application Structure Plan: A single-page dashboard layout with a persistent top navigation bar for smooth scrolling. This non-linear structure allows the interview panel to explore sections based on interest, which is more engaging than a static slide-by-slide presentation. The flow is designed to be narrative: Hero (Thesis) -> Experience (Credibility) -> Portfolio (Proof) -> Frameworks (Methodology) -> Vision (Call to Action). This structure was chosen to mirror a product discovery journey, reinforcing the "Compliance as a Product" theme and demonstrating strong information architecture skills. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: TikTok Metrics -> Goal: Compare outcomes -> Viz: Bar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: Provides a quick, clear visual comparison of the key achievements.
+        - Report Info: Professional Journey -> Goal: Show progression & depth -> Viz: Interactive Timeline (HTML/CSS) -> Interaction: Click/Hover to reveal details -> Justification: More engaging and less overwhelming than a long text block.
+        - Report Info: Audience Map -> Goal: Personalize content for interviewers -> Viz: Interactive Cards (HTML/CSS/JS) -> Interaction: Click to reveal targeted questions -> Justification: Shows direct preparation and respect for the panel's time.
+        - Report Info: Frameworks (Bank Model, RACI, etc.) -> Goal: Organize complex information -> Viz: Tabbed Interface (HTML/CSS/JS) -> Interaction: Click tabs to switch content -> Justification: Prevents cognitive overload from a long page scroll and allows focused exploration of each framework.
+        - Report Info: Case Study Steps -> Goal: Show a clear process -> Viz: Numbered Flow Diagram (HTML/CSS) -> Interaction: Static visual -> Justification: Clearly communicates a sequential, logical process.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #2D3748;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #3B82F6;
+        }
+        .framework-tab.active {
+            border-color: #3B82F6;
+            color: #3B82F6;
+            background-color: #EFF6FF;
+        }
+        .audience-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .audience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold text-gray-800">
+                Francis Chan
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="nav-link text-gray-600">About</a>
+                <a href="#experience" class="nav-link text-gray-600">Experience</a>
+                <a href="#portfolio" class="nav-link text-gray-600">Portfolio</a>
+                <a href="#frameworks" class="nav-link text-gray-600">Frameworks</a>
+                <a href="#vision" class="nav-link text-gray-600">Why Intuit?</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-20">
+
+        <section id="about" class="text-center mb-24">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">Compliance as a Product</h1>
+            <p class="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto">
+                A principal-level approach to building and scaling trust in money movement. I design, build, and run compliance as a core product with a platform-first view to enable growth, not hinder it.
+            </p>
+        </section>
+
+        <section id="experience" class="mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">A Career in Building Trust at Scale</h2>
+                <p class="mt-2 text-lg text-gray-600">My journey has been a deliberate progression from hands-on operations to platform-level product leadership.</p>
+            </div>
+            
+            <div class="relative border-l-2 border-blue-200 ml-6 md:ml-0">
+                <div class="mb-10 ml-8">
+                    <span class="absolute flex items-center justify-center w-4 h-4 bg-blue-500 rounded-full -left-2 ring-4 ring-white"></span>
+                    <h3 class="text-lg font-semibold text-gray-900">TikTok USDS</h3>
+                    <p class="text-sm font-normal text-gray-500">Payment Risk Operations Lead</p>
+                    <p class="mt-1 text-gray-700">Built risk & payment ops from 0→1 for TikTok Shop, scaling teams, systems, and controls under intense scrutiny.</p>
+                </div>
+                <div class="mb-10 ml-8">
+                    <span class="absolute flex items-center justify-center w-4 h-4 bg-blue-500 rounded-full -left-2 ring-4 ring-white"></span>
+                    <h3 class="text-lg font-semibold text-gray-900">Circle</h3>
+                    <p class="text-sm font-normal text-gray-500">Principal Product Manager</p>
+                    <p class="mt-1 text-gray-700">Led product for compliance/risk tooling and ops for treasury/payments, automating core reconciliation and settlement.</p>
+                </div>
+                <div class="mb-10 ml-8">
+                    <span class="absolute flex items-center justify-center w-4 h-4 bg-blue-500 rounded-full -left-2 ring-4 ring-white"></span>
+                    <h3 class="text-lg font-semibold text-gray-900">Marqeta</h3>
+                    <p class="text-sm font-normal text-gray-500">Product Operations Manager Lead</p>
+                    <p class="mt-1 text-gray-700">Drove product ops for financial data services, optimizing reconciliation and data flows for a modern card issuer.</p>
+                </div>
+                <div class="mb-10 ml-8">
+                    <span class="absolute flex items-center justify-center w-4 h-4 bg-blue-500 rounded-full -left-2 ring-4 ring-white"></span>
+                    <h3 class="text-lg font-semibold text-gray-900">PayPal</h3>
+                    <p class="text-sm font-normal text-gray-500">Senior Product Operations Manager, SRE</p>
+                    <p class="mt-1 text-gray-700">Spent 15 years scaling from ops to SRE product, owning reliability for core payment platforms and managing critical incidents.</p>
+                </div>
+            </div>
+
+            <div class="mt-20">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl font-bold text-gray-900">Connecting My Experience to Your Roles</h3>
+                    <p class="mt-2 text-lg text-gray-600">My goal is to be a direct and effective partner to each of you. Click on a name to see relevant topics.</p>
+                </div>
+                <div id="audience-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Portfolio Highlights</h2>
+                <p class="mt-2 text-lg text-gray-600">Demonstrating 0→1 execution and platform automation at scale.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">TikTok Shop 0→1</h3>
+                    <p class="text-gray-600 mb-4">Launched and scaled a compliant, low-risk payment ecosystem for TikTok Shop in the US from the ground up.</p>
+                    <div class="chart-container">
+                        <canvas id="tiktokChart"></canvas>
+                    </div>
+                    <p class="text-sm text-center mt-4 text-gray-500">Key outcomes from building the risk and payment operations function.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Circle Platform Automation</h3>
+                    <p class="text-gray-600 mb-6">Built trust and operational scale by automating core treasury and compliance functions for a global stablecoin.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 mt-1">✓</span>
+                            <div>
+                                <h4 class="font-semibold">Automated Platform</h4>
+                                <p class="text-gray-600">Delivered tools for pricing, billing, and reconciliation, eliminating manual work.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                             <span class="text-blue-500 mr-3 mt-1">✓</span>
+                            <div>
+                                <h4 class="font-semibold">Unlocked Ops Capacity</h4>
+                                <p class="text-gray-600">Freed ~20 hours/week of manual, error-prone effort for the finance team.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                             <span class="text-blue-500 mr-3 mt-1">✓</span>
+                            <div>
+                                <h4 class="font-semibold">Improved Auditability</h4>
+                                <p class="text-gray-600">Created immutable, real-time audit trails for all money movement.</p>
+                            </div>
+                        </li>
+                         <li class="flex items-start">
+                             <span class="text-blue-500 mr-3 mt-1">✓</span>
+                            <div>
+                                <h4 class="font-semibold">Embedded Legal</h4>
+                                <p class="text-gray-600">Co-developed rule changes for asset recovery with Legal to ensure compliance.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="frameworks" class="mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">My Frameworks for Principled Execution</h2>
+                <p class="mt-2 text-lg text-gray-600">These are the models I use to manage complexity, ensure clarity, and ship compliant products safely.</p>
+            </div>
+            <div>
+                <div class="border-b border-gray-200 mb-8">
+                    <nav id="framework-tabs" class="-mb-px flex space-x-6" aria-label="Tabs">
+                    </nav>
+                </div>
+                <div id="framework-content">
+                </div>
+            </div>
+        </section>
+
+        <section id="vision" class="bg-blue-600 text-white rounded-xl p-12 text-center">
+            <h2 class="text-3xl font-bold mb-4">Why Intuit? A Vision for Unified Compliance.</h2>
+            <p class="text-lg text-blue-100 max-w-4xl mx-auto mb-6">
+                My goal is to build a unified compliance fabric that turns trust into a competitive advantage for Intuit. A platform that leverages shared signals to produce consistent SLAs, lower losses, and higher approval rates across all products.
+            </p>
+            <p class="text-blue-200 italic">
+                Given the cross-business, multi-rail scope we've discussed, I believe my experience aligns with a Principal-level role, and I'd like to explore that if we see a mutual fit.
+            </p>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const audienceData = [
+                { name: 'Harvie Franklin', title: 'Head of Banking & MM Compliance', topic: 'We\'ll discuss a Bank-Partner Operating Model for clear ownership and SLAs across rails.', question: 'How do you currently manage operational handoffs with sponsor banks during new product launches?' },
+                { name: 'Angelo Derosa', title: 'Head of Lending Compliance', topic: 'I\'ll touch on building guardrails for products that may have Reg Z / TILA implications.', question: 'What are your biggest challenges in ensuring disclosure requirements are met consistently at the point of sale?' },
+                { name: 'Jennifer Maddux', title: 'Head of MM Rules Compliance', topic: 'I\'ll cover my framework for a "Network-Rules Radar" to stay ahead of changes like Visa CE 3.0.', question: 'How does your team currently track and prioritize the constant stream of network rule changes?' },
+                { name: 'Cassandra Wang', title: 'Principal Product Counsel', topic: 'We\'ll look at a RACI model for governance that embeds Legal early and protects privilege.', question: 'What is your preferred model for engaging with Product to ensure legal guidance is integrated into the dev lifecycle?' }
+            ];
+
+            const audienceGrid = document.getElementById('audience-grid');
+            audienceData.forEach(person => {
+                const card = document.createElement('div');
+                card.className = 'audience-card bg-white p-6 rounded-lg shadow-md cursor-pointer';
+                card.innerHTML = `
+                    <h4 class="font-bold text-lg text-gray-900">${person.name}</h4>
+                    <p class="text-sm text-gray-500 mb-4">${person.title}</p>
+                    <div class="details hidden">
+                        <p class="text-gray-700 text-sm mb-3"><strong>Topic:</strong> ${person.topic}</p>
+                        <p class="text-blue-600 text-sm font-semibold"><strong>Question:</strong> ${person.question}</p>
+                    </div>
+                `;
+                audienceGrid.appendChild(card);
+
+                card.addEventListener('click', () => {
+                    const details = card.querySelector('.details');
+                    const allDetails = audienceGrid.querySelectorAll('.details');
+                    
+                    const isHidden = details.classList.contains('hidden');
+
+                    allDetails.forEach(d => d.classList.add('hidden'));
+                    
+                    if (isHidden) {
+                        details.classList.remove('hidden');
+                    }
+                });
+            });
+
+            const tiktokChartCtx = document.getElementById('tiktokChart').getContext('2d');
+            new Chart(tiktokChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Fraud Reduction', 'OpEx Reduction', 'Chargeback Resolution', 'Team Efficiency'],
+                    datasets: [{
+                        label: 'Percentage Improvement',
+                        data: [30, 60, 25, 10],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.6)',
+                            'rgba(16, 185, 129, 0.6)',
+                            'rgba(239, 68, 68, 0.6)',
+                            'rgba(245, 158, 11, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(239, 68, 68, 1)',
+                            'rgba(245, 158, 11, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Improvement (%)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const frameworks = {
+                'Bank-Partner Model': `
+                    <p class="text-gray-600 mb-6">Clarity on ownership is key to a compliant, multi-rail platform. This model defines primary responsibility versus oversight to reduce regulatory risk and speed up issue resolution.</p>
+                    <div class="overflow-x-auto bg-white rounded-lg shadow">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Payment Rail</th>
+                                    <th scope="col" class="px-6 py-3">KYC/Onboarding</th>
+                                    <th scope="col" class="px-6 py-3">Sanctions/OFAC</th>
+                                    <th scope="col" class="px-6 py-3">Error Resolution</th>
+                                    <th scope="col" class="px-6 py-3">Disputes/Returns</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b"><td rowspan="2" class="px-6 py-4 font-medium text-gray-900">ACH / FedNow / RTP</td><td class="px-6 py-4"><b>Intuit</b> (Primary)</td><td class="px-6 py-4"><b>Intuit</b> (Real-time)</td><td class="px-6 py-4"><b>Intuit</b> (Intake)</td><td class="px-6 py-4"><b>Intuit</b> (Returns/NOCs)</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4">Bank (Oversight)</td><td class="px-6 py-4">Bank (Secondary)</td><td class="px-6 py-4">Bank (Adjudication)</td><td class="px-6 py-4">Bank (Settlement)</td></tr>
+                                <tr class="bg-white border-b"><td rowspan="2" class="px-6 py-4 font-medium text-gray-900">Card Push/Pull</td><td class="px-6 py-4"><b>Intuit</b></td><td class="px-6 py-4"><b>Intuit</b> (Real-time)</td><td class="px-6 py-4"><b>Intuit</b> (Reg E)</td><td class="px-6 py-4"><b>Intuit</b> (Evidence)</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4">Bank (Oversight)</td><td class="px-6 py-4">Bank (Secondary)</td><td class="px-6 py-4">N/A</td><td class="px-6 py-4">Bank/Network (Rules)</td></tr>
+                                <tr class="bg-white border-b"><td rowspan="2" class="px-6 py-4 font-medium text-gray-900">Wires</td><td class="px-6 py-4"><b>Bank</b> (Primary)</td><td class="px-6 py-4"><b>Bank</b> (Primary)</td><td class="px-6 py-4"><b>Bank</b></td><td class="px-6 py-4">N/A</td></tr>
+                                <tr class="bg-gray-50"><td class="px-6 py-4">Intuit (Data Pass-thru)</td><td class="px-6 py-4">Intuit (Secondary)</td><td class="px-6 py-4">Intuit (Support)</td><td class="px-6 py-4">N/A</td></tr>
+                            </tbody>
+                        </table>
+                    </div>`,
+                'Network-Rules Radar': `
+                    <p class="text-gray-600 mb-6">Treating rule changes as a product backlog, not a series of emergencies. This proactive system turns reactive fire drills into a predictable, managed process.</p>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow"><h4 class="font-bold text-lg mb-2">Visa CE 3.0</h4><p class="text-sm text-gray-600">Map new evidence fields to internal data sources and automate payload assembly for dispute responses.</p></div>
+                        <div class="bg-white p-6 rounded-lg shadow"><h4 class="font-bold text-lg mb-2">Mastercard Disputes</h4><p class="text-sm text-gray-600">Update internal dispute reason code taxonomy and train chargeback analysts on new workflows.</p></div>
+                        <div class="bg-white p-6 rounded-lg shadow"><h4 class="font-bold text-lg mb-2">Tokenization/COF</h4><p class="text-sm text-gray-600">Platform audit to ensure proper use of cryptograms and update merchant-facing documentation.</p></div>
+                    </div>`,
+                'Governance (RACI)': `
+                    <p class="text-gray-600 mb-6">A clear framework for shipping compliant changes safely. Compliance is accountable for policy, while Product is accountable for the go/no-go decision, with Legal consulted early to protect privilege.</p>
+                    <div class="overflow-x-auto bg-white rounded-lg shadow">
+                         <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3">Task / Deliverable</th>
+                                    <th class="px-6 py-3 text-center">Product</th><th class="px-6 py-3 text-center">Compliance</th><th class="px-6 py-3 text-center">Legal</th><th class="px-6 py-3 text-center">Engineering</th><th class="px-6 py-3 text-center">Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b"><td class="px-6 py-4 font-medium">Policy Interpretation</td><td class="px-6 py-4 text-center font-bold text-blue-600">R</td><td class="px-6 py-4 text-center font-bold text-red-600">A</td><td class="px-6 py-4 text-center font-bold text-green-600">C</td><td class="px-6 py-4 text-center">I</td><td class="px-6 py-4 text-center">I</td></tr>
+                                <tr class="border-b bg-gray-50"><td class="px-6 py-4 font-medium">Product Requirements</td><td class="px-6 py-4 text-center font-bold text-red-600">A</td><td class="px-6 py-4 text-center font-bold text-blue-600">R</td><td class="px-6 py-4 text-center font-bold text-blue-600">R</td><td class="px-6 py-4 text-center">I</td><td class="px-6 py-4 text-center font-bold text-blue-600">R</td></tr>
+                                <tr class="border-b"><td class="px-6 py-4 font-medium">Policy Engine Rule Change</td><td class="px-6 py-4 text-center font-bold text-blue-600">R</td><td class="px-6 py-4 text-center font-bold text-red-600">A</td><td class="px-6 py-4 text-center font-bold text-green-600">C</td><td class="px-6 py-4 text-center font-bold text-blue-600">R</td><td class="px-6 py-4 text-center font-bold text-green-600">C</td></tr>
+                                <tr class="bg-gray-50"><td class="px-6 py-4 font-medium">Go/No-Go Decision</td><td class="px-6 py-4 text-center font-bold text-red-600">A</td><td class="px-6 py-4 text-center font-bold text-red-600">A</td><td class="px-6 py-4 text-center font-bold text-green-600">C</td><td class="px-6 py-4 text-center font-bold text-blue-600">R</td><td class="px-6 py-4 text-center font-bold text-blue-600">R</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="p-4 text-xs text-gray-600 border-t"><b>A</b>: Accountable, <b>R</b>: Responsible, <b>C</b>: Consulted, <b>I</b>: Informed</div>
+                    </div>`,
+                 'Case Study Framework': `
+                    <p class="text-gray-600 mb-6">How I would approach a new compliance challenge at Intuit. This entire framework is designed to produce a defensible position for auditors, regulators, and executives.</p>
+                    <div class="space-y-8">
+                        <div class="flex items-start"><div class="flex-shrink-0 w-10 h-10 bg-blue-500 text-white font-bold rounded-full flex items-center justify-center mr-4">1</div><div><h4 class="font-bold text-lg">Clarify</h4><p class="text-gray-600">What are the business objectives? What is the regulatory context?</p></div></div>
+                        <div class="flex items-start"><div class="flex-shrink-0 w-10 h-10 bg-blue-500 text-white font-bold rounded-full flex items-center justify-center mr-4">2</div><div><h4 class="font-bold text-lg">Map</h4><p class="text-gray-600">Document end-to-end data, money, and user flows. Identify systems and gaps.</p></div></div>
+                        <div class="flex items-start"><div class="flex-shrink-0 w-10 h-10 bg-blue-500 text-white font-bold rounded-full flex items-center justify-center mr-4">3</div><div><h4 class="font-bold text-lg">Assess</h4><p class="text-gray-600">Analyze through multiple lenses: Customer, Regulatory, Brand, and Operational Risk.</p></div></div>
+                        <div class="flex items-start"><div class="flex-shrink-0 w-10 h-10 bg-blue-500 text-white font-bold rounded-full flex items-center justify-center mr-4">4</div><div><h4 class="font-bold text-lg">Mitigate</h4><p class="text-gray-600">Define short-term controls (e.g., manual review) vs. long-term platform fixes (e.g., automation).</p></div></div>
+                        <div class="flex items-start"><div class="flex-shrink-0 w-10 h-10 bg-blue-500 text-white font-bold rounded-full flex items-center justify-center mr-4">5</div><div><h4 class="font-bold text-lg">Plan</h4><p class="text-gray-600">Assign ownership, define KPIs, create the product roadmap, and establish comms.</p></div></div>
+                        <div class="flex items-start"><div class="flex-shrink-0 w-10 h-10 bg-blue-500 text-white font-bold rounded-full flex items-center justify-center mr-4">6</div><div><h4 class="font-bold text-lg">Defend</h4><p class="text-gray-600">Pre-answer the hard questions: "What did you know, when, and what did you do about it?"</p></div></div>
+                    </div>`
+            };
+
+            const tabsContainer = document.getElementById('framework-tabs');
+            const contentContainer = document.getElementById('framework-content');
+
+            Object.keys(frameworks).forEach((key, index) => {
+                const tab = document.createElement('button');
+                tab.className = 'framework-tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-600 hover:border-blue-300';
+                tab.textContent = key;
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.framework-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    contentContainer.innerHTML = frameworks[key];
+                });
+                tabsContainer.appendChild(tab);
+
+                if (index === 0) {
+                    tab.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
